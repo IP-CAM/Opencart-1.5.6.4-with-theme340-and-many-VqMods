@@ -15,4 +15,10 @@ $_['text_order']        = 'Order History';
 $_['text_wishlist']     = 'Wish List';
 $_['text_newsletter']   = 'Newsletter';
 $_['text_powered']      = 'Powered By <a href="http://www.opencart.com">OpenCart</a><br /> %s &copy; %s';
+$_['text_follow']   = 'Follow Us';
+$_['text_fb']   = 'Facebook';
+$_['text_twi']   = 'Twitter';
+$_['text_rss']   = 'RSS';
+$_['text_yt']   = 'You Tube';
+$_['text_support']   = 'Online support';
 ?>

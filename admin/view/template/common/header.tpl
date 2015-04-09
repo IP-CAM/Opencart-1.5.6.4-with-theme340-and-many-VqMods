@@ -158,6 +158,7 @@ $(document).ready(function(){
           <?php } ?>
           <!-- PAYPAL MANAGE NAVIGATION LINK END -->
           <li><a href="<?php echo $contact; ?>"><?php echo $text_contact; ?></a></li>
+          <li><a href="<?php echo $zipcodes; ?>"><?php echo $text_zipcodes; ?></a></li>
         </ul>
       </li>
       <li id="system"><a class="top"><?php echo $text_system; ?></a>
