@@ -1,0 +1,13 @@
+/* God I hate Microsoft! */
+header #logo a img {
+	width:auto
+	}
+.camera_caption {
+	width:auto
+	}
+#cboxLoadingGraphic, #cboxLoadingOverlay {display:none !important;}
+#search input {
+	max-width:none;
+	width:300px;
+	padding-right:50px;
+	}
