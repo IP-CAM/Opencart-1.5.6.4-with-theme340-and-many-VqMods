@@ -140,5 +140,21 @@ class ControllerModuleCart extends Controller {
 
 		$this->response->setOutput($this->render());		
 	}
+        public function checkzipcode() {
+            $json = array();
+            if (isset($this->request->post['zipcode'])) {
+                $zipcode = $this->request->post['zipcode'];
+            }else {
+               $json['error'] = 0;
+            }
+            $this->load->model('module/zipcode');
+            if($this->model_module_zipcode->checkZipcode($zipcode)) {
+                $json['success'] = 1;
+                $this->session->data['zipcode'] = $zipcode;
+            }else {
+                $json['error'] = 1;
+            }
+            $this->response->setOutput(json_encode($json));
+        }
 }
 ?>

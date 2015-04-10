@@ -6,9 +6,9 @@
   <select name="address_id" style="width: 100%; margin-bottom: 15px;" size="5">
 	<?php foreach ($addresses as $address) { ?>
 	<?php if ($address['address_id'] == $address_id) { ?>
-	<option value="<?php echo $address['address_id']; ?>" selected="selected"><?php echo $address['firstname']; ?> <?php echo $address['lastname']; ?>, <?php echo $address['address_1']; ?>, <?php echo $address['city']; ?>, <?php echo $address['zone']; ?>, <?php echo $address['country']; ?></option>
+	<option value="<?php echo $address['address_id']; ?>" selected="selected"><?php echo $address['firstname']; ?> <?php echo $address['lastname']; ?>, <?php echo $address['address_1']; ?>, <?php echo $address['city']; ?>, <?php echo $address['postcode']; ?>, <?php echo $address['zone']; ?>, <?php echo $address['country']; ?></option>
 	<?php } else { ?>
-	<option value="<?php echo $address['address_id']; ?>"><?php echo $address['firstname']; ?> <?php echo $address['lastname']; ?>, <?php echo $address['address_1']; ?>, <?php echo $address['city']; ?>, <?php echo $address['zone']; ?>, <?php echo $address['country']; ?></option>
+	<option value="<?php echo $address['address_id']; ?>"><?php echo $address['firstname']; ?> <?php echo $address['lastname']; ?>, <?php echo $address['address_1']; ?>, <?php echo $address['city']; ?>, <?php echo $address['postcode']; ?>, <?php echo $address['zone']; ?>, <?php echo $address['country']; ?></option>
 	<?php } ?>
 	<?php } ?>
   </select>
@@ -83,7 +83,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="control-label col-sm-5" for="postcode"><span id="payment-postcode-required" class="required">*</span> <?php echo $entry_postcode; ?></label>
+			<label class="control-label col-sm-5" for="postcode"><span class="required">*</span> <?php echo $entry_postcode; ?></label>
 			<div class="controls col-sm-7">
 				<input type="text" name="postcode" value="" class="large-field" />
 			</div>

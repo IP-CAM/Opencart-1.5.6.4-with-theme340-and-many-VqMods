@@ -20,8 +20,22 @@
 	 if ($products || $vouchers) { 
 	 
 	 ?>
-	<span class="latest-added"><?php echo $text_latest_added;?></span>
-	<br /><br />
+	<!--<span class="latest-added"><?php echo $text_latest_added;?></span>
+	<br /><br />-->
+        <?php 
+           if(isset($this->session->data['zipcode']) && $this->session->data['zipcode'] != null) {
+              $zipcode = $this->session->data['zipcode'];
+              $zc_status_msg = 'Delivery Available';
+           }else {              
+              $zipcode = '';
+              $zc_status_msg = '';
+           }
+           ?><div id="order_zipcode_div" style="padding-bottom: 15px;"><input type="text" name="order_zipcode" id="order_zipcode" placeholder = "Zip Code" style="width: 100px;" value="<?php echo $zipcode; ?>"/>
+               <a id="zc_check_avail" href="#" style="color:#7ED0FB">check availability</a>
+               <div id="zc_status_msg"><?php echo $zc_status_msg; ?></div>
+           </div>
+           
+         
 	<div class="mini-cart-info">
 	  <table class="cart">
 		<?php $i=0; $products=array_reverse($products);  foreach ($products as $product) {

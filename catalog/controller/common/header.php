@@ -38,7 +38,10 @@ class ControllerCommonHeader extends Controller {
 			$this->data['logo'] = $server . 'image/' . $this->config->get('config_logo');
 		} else {
 			$this->data['logo'] = '';
-		}		
+		}
+		if($this->config->get('config_telephone')) {
+			$this->data['telephone'] = $this->config->get('config_telephone');
+		}				
 
 		$this->language->load('common/header');
 
