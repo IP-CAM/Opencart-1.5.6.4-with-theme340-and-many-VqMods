@@ -71,7 +71,7 @@
 					</div>
 				</td>
 			</tr>
-			<tr>
+			<!--<tr>
 				<td>
 					<div class="form-group">
 						<label class="control-label col-sm-5" for="fax"><?php echo $entry_fax; ?></label>
@@ -80,10 +80,10 @@
 						</div>
 					</div>
 				</td>
-			</tr>
+			</tr>-->
 		  </table>
 		</div>
-		<h2><?php echo $text_your_address; ?></h2>
+		<!--<h2><?php echo $text_your_address; ?></h2>
 		<div class="content">
 		  <table class="form">
 			<tr>
@@ -232,7 +232,7 @@
 				</td>
 			</tr>
 		  </table>
-		</div>
+		</div>-->
 		<h2><?php echo $text_your_password; ?></h2>
 		<div class="content">
 		  <table class="form">
@@ -273,20 +273,20 @@
 						<label class="control-label col-sm-5" for="newsletter"><?php echo $entry_newsletter; ?></label>
 						<div class="controls col-sm-7">
 							<?php if ($newsletter) { ?>
-							<label class="radio inline">
+							<label class="inline">
 								<input type="radio" name="newsletter" value="1" checked="checked" />
 								<?php echo $text_yes; ?>
 							</label>
-							<label class="radio inline">
+							<label class="inline">
 								<input type="radio" name="newsletter" value="0" />
 								<?php echo $text_no; ?>
 							</label>
 							<?php } else { ?>
-							<label class="radio inline">
+							<label class="inline">
 								<input type="radio" name="newsletter" value="1" />
 								<?php echo $text_yes; ?>
 							</label>
-							<label class="radio inline">
+							<label class="inline">
 								<input type="radio" name="newsletter" value="0" checked="checked" />
 								<?php echo $text_no; ?>
 							</label>

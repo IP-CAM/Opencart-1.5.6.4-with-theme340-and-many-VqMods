@@ -371,7 +371,7 @@ class ControllerAccountRegister extends Controller {
 		}
 
 		// Customer Group
-		$this->load->model('account/customer_group');
+		/*$this->load->model('account/customer_group');
 
 		if (isset($this->request->post['customer_group_id']) && is_array($this->config->get('config_customer_group_display')) && in_array($this->request->post['customer_group_id'], $this->config->get('config_customer_group_display'))) {
 			$customer_group_id = $this->request->post['customer_group_id'];
@@ -424,7 +424,7 @@ class ControllerAccountRegister extends Controller {
 
 		if (!isset($this->request->post['zone_id']) || $this->request->post['zone_id'] == '') {
 			$this->error['zone'] = $this->language->get('error_zone');
-		}
+		}*/
 
 		if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 20)) {
 			$this->error['password'] = $this->language->get('error_password');
