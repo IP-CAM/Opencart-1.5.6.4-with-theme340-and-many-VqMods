@@ -96,4 +96,5 @@ $_['text_openbay_order_import']        = 'Order import';
 $_['text_paypal_manage']               = 'PayPal';
 $_['text_paypal_search']               = 'Search';
 $_['text_recurring_profile']           = 'Recurring Profiles';
+$_['text_zipcodes']                    = 'Zip Codes';
 ?>
