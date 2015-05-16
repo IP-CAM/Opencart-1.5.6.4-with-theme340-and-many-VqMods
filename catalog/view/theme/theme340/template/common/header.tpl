@@ -65,6 +65,7 @@
 <script type="text/javascript" src="catalog/view/theme/<?php echo $this->config->get('config_template');?>/js/bootstrap/bootstrap.js"></script>
 <script type="text/javascript" src="catalog/view/javascript/jquery/tabs.js"></script>
 
+<script type="text/javascript" src="catalog/view/theme/<?php echo $this->config->get('config_template');?>/js/bpopup.js"></script>
 <script type="text/javascript" src="catalog/view/theme/<?php echo $this->config->get('config_template');?>/js/jQuery.equalHeights.js"></script>
 <script type="text/JavaScript" src="catalog/view/theme/<?php echo $this->config->get('config_template');?>/js/elevate/jquery.elevatezoom.js"></script>
 <script type="text/javascript" src="catalog/view/theme/<?php echo $this->config->get('config_template');?>/js/jquery.prettyPhoto.js"></script>
@@ -109,8 +110,38 @@ DD_belatedPNG.fix('#logo img');
 </script>
 <![endif]-->
 <link rel="stylesheet" type="text/css" href="catalog/view/theme/<?php echo $this->config->get('config_template');?>/stylesheet/livesearch.css"/>
+<style type="text/css">
+.popup-box { 
+    background-color:#fff;
+    border: 4px solid #73b134;    
+    display:none; 
+    padding:20px;
+    min-width:400px;
+    min-height: 180px;
+}
+#zipcode-content, #free-shipping-content, #reward-points-content {
+    min-width:700px;
+    min-height: 200px;
+    max-width:700px;
+    max-height: 350px;
+    overflow: auto;
+}
+.b-close{
+    cursor:pointer;
+    position:absolute;
+    right: 2px;
+    top: 1px;
+    font-size: 25px;
+}
+#zipcode-popup{
+    font-size: 14px;
+    margin-top: 43px;
+}
+</style>
+
 <?php if (!empty($stores)) { ?>
-<script type="text/javascript"><!--
+<script type="text/javascript">
+<!--
 $(document).ready(function() {
 <?php foreach ($stores as $store) { ?>
 $('body').prepend('<iframe src="<?php echo $store; ?>" style="display: none;"></iframe>');
@@ -121,7 +152,15 @@ $('body').prepend('<iframe src="<?php echo $store; ?>" style="display: none;"></
 <?php echo $google_analytics; ?>
 </head>
 <body class="<?php echo empty($this->request->get['route']) ? 'common-home' : str_replace('/', '-', $this->request->get['route']); ?>"><a id="hidden" href="<?php echo $base; ?>"></a>
+<!-- Element to pop up -->
+<div id="bpopup-box" class="popup-box">
+    <div id="zipcode-popup">
+    <a class="b-close"><i class="fa fa-times-circle"></i></a>
+    <input id="order_zc_popup" type="text" value="" style="width: 250px;" placeholder="Enter zip code to check delivery support" name="order_zc_popup" />
 
+    <a class="button" id="zc_check_popup" href="#"><span class="zc_verify">Check</span></a>
+    </div>
+</div>
 <div class="swipe-left"></div>
 <div id="body">
 <div class="swipe">
@@ -182,7 +221,9 @@ $('body').prepend('<iframe src="<?php echo $store; ?>" style="display: none;"></
 		<div class="row">
 			<div class="col-sm-12">
 				<?php if ($logo) { ?>
-					<div id="logo"><a href="<?php echo $home; ?>"><img src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" /></a></div>
+					<div id="logo"><a href="<?php echo $home; ?>">
+                                                <!--<div class="logo-div" style="color: #fff; font-weight: bold; font-size: 40px;">Arrow Groceries</div>-->
+                                                <img src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" /></a></div>
 				<?php } ?>
 				<div class="topright">
 					<div class="toprow">
@@ -205,10 +246,10 @@ $('body').prepend('<iframe src="<?php echo $store; ?>" style="display: none;"></
 					<div class="cart-position">
 						<div class="cart-inner"><?php echo $cart; ?></div>
 					</div>
-					<div class="phone">
+					<!--<div class="phone">
 						<i class="fa fa-phone"></i>
 						<?php echo $telephone; ?>
-					</div>
+					</div>-->
 					<div id="search">
 						<div class="inner">
 							<div class="button-search"><i class="fa fa-search"></i></div>

@@ -31,8 +31,7 @@
               $zc_status_msg = '';
            }
            ?><div id="order_zipcode_div" style="padding-bottom: 15px;"><input type="text" name="order_zipcode" id="order_zipcode" placeholder = "Zip Code" style="width: 100px;" value="<?php echo $zipcode; ?>"/>
-               <a id="zc_check_avail" href="#" style="color:#7ED0FB">check availability</a>
-               <div id="zc_status_msg"><?php echo $zc_status_msg; ?></div>
+               <a id="zc_check_avail" class="button" href="#"><span class="zc_verify">Check</span></a>
            </div>
            
          
