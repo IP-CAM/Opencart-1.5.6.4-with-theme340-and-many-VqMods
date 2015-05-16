@@ -37,7 +37,7 @@
 				<img id="zoom_01"  data-zoom-image="<?php echo $thumb1; ?>" src="<?php echo $thumb1; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" />
 			</div>
 			<?php } ?>
-			<?php if ($images || $thumb1) { ?>
+			<?php if ($images) { ?>
 				<div class="image-additional">
 					<ul id="image-additional">
 						<?php if (!empty($thumb1)) { ?>

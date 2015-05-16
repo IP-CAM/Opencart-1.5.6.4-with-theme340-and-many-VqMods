@@ -299,6 +299,11 @@ class ControllerProductProduct extends Controller {
 			} else {
 				$this->data['thumb'] = '';
 			}
+      if ($product_info['image']) {
+				$this->data['thumb1'] = $this->model_tool_image->resize($product_info['image'], $this->config->get('config_image_popup_width'), $this->config->get('config_image_popup_height'));
+			} else {
+				$this->data['thumb1'] = '';
+			}
 
 			$this->data['images'] = array();
 
