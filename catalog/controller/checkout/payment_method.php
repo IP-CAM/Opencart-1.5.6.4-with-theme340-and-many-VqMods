@@ -5,13 +5,13 @@ class ControllerCheckoutPaymentMethod extends Controller {
 
 		$this->load->model('account/address');
 
-		if ($this->customer->isLogged() && isset($this->session->data['payment_address_id'])) {
-			$payment_address = $this->model_account_address->getAddress($this->session->data['payment_address_id']);		
+		if ($this->customer->isLogged() && isset($this->session->data['shipping_address_id'])) {
+			$shipping_address = $this->model_account_address->getAddress($this->session->data['shipping_address_id']);		
 		} elseif (isset($this->session->data['guest'])) {
-			$payment_address = $this->session->data['guest']['payment'];
-		}	
+			$shipping_address = $this->session->data['guest']['shipping'];
+		}
 
-		if (!empty($payment_address)) {
+		//if (!empty($payment_address)) {
 			// Totals
 			$total_data = array();					
 			$total = 0;
@@ -50,7 +50,7 @@ class ControllerCheckoutPaymentMethod extends Controller {
 				if ($this->config->get($result['code'] . '_status')) {
 					$this->load->model('payment/' . $result['code']);
 
-					$method = $this->{'model_payment_' . $result['code']}->getMethod($payment_address, $total);
+					$method = $this->{'model_payment_' . $result['code']}->getMethod($shipping_address, $total);
 
 					if ($method) {
 						if($cart_has_recurring > 0){
@@ -76,7 +76,7 @@ class ControllerCheckoutPaymentMethod extends Controller {
 
 			$this->session->data['payment_methods'] = $method_data;	
 
-		}			
+		//}
 
 		$this->data['text_payment_method'] = $this->language->get('text_payment_method');
 		$this->data['text_comments'] = $this->language->get('text_comments');
@@ -144,7 +144,7 @@ class ControllerCheckoutPaymentMethod extends Controller {
 		// Validate if payment address has been set.
 		$this->load->model('account/address');
 
-		if ($this->customer->isLogged() && isset($this->session->data['payment_address_id'])) {
+		/*if ($this->customer->isLogged() && isset($this->session->data['payment_address_id'])) {
 			$payment_address = $this->model_account_address->getAddress($this->session->data['payment_address_id']);		
 		} elseif (isset($this->session->data['guest'])) {
 			$payment_address = $this->session->data['guest']['payment'];
@@ -152,7 +152,7 @@ class ControllerCheckoutPaymentMethod extends Controller {
 
 		if (empty($payment_address)) {
 			$json['redirect'] = $this->url->link('checkout/checkout', '', 'SSL');
-		}		
+		}	*/	
 
 		// Validate cart has products and has stock.			
 		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {

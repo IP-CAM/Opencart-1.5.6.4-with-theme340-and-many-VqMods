@@ -135,9 +135,9 @@ class ControllerCheckoutRegister extends Controller {
 				$json['error']['firstname'] = $this->language->get('error_firstname');
 			}
 
-			if ((utf8_strlen($this->request->post['lastname']) < 1) || (utf8_strlen($this->request->post['lastname']) > 32)) {
+			/*if ((utf8_strlen($this->request->post['lastname']) < 1) || (utf8_strlen($this->request->post['lastname']) > 32)) {
 				$json['error']['lastname'] = $this->language->get('error_lastname');
-			}
+			}*/
 
 			if ((utf8_strlen($this->request->post['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email'])) {
 				$json['error']['email'] = $this->language->get('error_email');
@@ -194,12 +194,23 @@ class ControllerCheckoutRegister extends Controller {
 				// VAT Validation
 				$this->load->helper('vat');
 
-				if ($this->config->get('config_vat') && $this->request->post['tax_id'] && (vat_validation($country_info['iso_code_2'], $this->request->post['tax_id']) == 'invalid')) {
+				/*if ($this->config->get('config_vat') && $this->request->post['tax_id'] && (vat_validation($country_info['iso_code_2'], $this->request->post['tax_id']) == 'invalid')) {
 					$json['error']['tax_id'] = $this->language->get('error_vat');
-				}				
+				}*/				
 			}
+      if ($this->request->post['postcode'] == '') {
+        $json['error']['postcode'] = $this->language->get('error_postcode');
+      }
+      else if ($this->request->post['postcode']) {
+        if (!isset($json['error']['postcode'])) {
+          $this->load->model('module/zipcode');
+          if (!$this->model_module_zipcode->checkZipcode($this->request->post['postcode'])) {
+            $json['error']['postcode'] = 'Delivery is not available for this Post Code!';
+          }
+        }
+      }
 
-			if ($this->request->post['country_id'] == '') {
+      if ($this->request->post['country_id'] == '') {
 				$json['error']['country'] = $this->language->get('error_country');
 			}
 

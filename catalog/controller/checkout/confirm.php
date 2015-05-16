@@ -29,7 +29,7 @@ class ControllerCheckoutConfirm extends Controller {
 		// Validate if payment address has been set.
 		$this->load->model('account/address');
 
-		if ($this->customer->isLogged() && isset($this->session->data['payment_address_id'])) {
+		/*if ($this->customer->isLogged() && isset($this->session->data['payment_address_id'])) {
 			$payment_address = $this->model_account_address->getAddress($this->session->data['payment_address_id']);		
 		} elseif (isset($this->session->data['guest'])) {
 			$payment_address = $this->session->data['guest']['payment'];
@@ -37,7 +37,7 @@ class ControllerCheckoutConfirm extends Controller {
 
 		if (empty($payment_address)) {
 			$redirect = $this->url->link('checkout/checkout', '', 'SSL');
-		}			
+		}	*/		
 
 		// Validate if payment method has been set.	
 		if (!isset($this->session->data['payment_method'])) {

@@ -32,15 +32,21 @@ class ControllerCheckoutShippingAddress extends Controller {
 
         $this->data['addresses'] = $this->model_account_address->getAddresses();
         $this->load->model('module/zipcode');
-        if (isset($this->session->data['zipcode']) && $this->session->data['zipcode']) {
-            foreach ($this->data['addresses'] as $key => $address) {
-                if ($address['postcode'] != $this->session->data['zipcode']) {
-                    if (!$this->model_module_zipcode->checkZipcode($address['postcode'])) {
-                        unset($this->data['addresses'][$key]);
-                    }
+
+        foreach ($this->data['addresses'] as $key => $address) {
+            if(trim($address['postcode']) == null) {
+                unset($this->data['addresses'][$key]);
+                continue;
+            }
+            if (isset($this->session->data['zipcode']) &&
+                    $this->session->data['zipcode'] &&
+                    $address['postcode'] != $this->session->data['zipcode']) {
+                if (!$this->model_module_zipcode->checkZipcode($address['postcode'])) {
+                    unset($this->data['addresses'][$key]);
                 }
             }
         }
+
         if ($this->data['addresses']) {
             $this->data['addresses'] = array_values($this->data['addresses']);
         }
@@ -150,14 +156,15 @@ class ControllerCheckoutShippingAddress extends Controller {
                 }
             }
 
-            if ($this->request->post['shipping_address'] == 'new') {
-                if ((utf8_strlen($this->request->post['firstname']) < 1) || (utf8_strlen($this->request->post['firstname']) > 32)) {
+            if ($this->request->post['shipping_address'] == 'new' ||
+                $this->request->post['shipping_address_guest'] == 'guest') {
+                /*if ((utf8_strlen($this->request->post['firstname']) < 1) || (utf8_strlen($this->request->post['firstname']) > 32)) {
                     $json['error']['firstname'] = $this->language->get('error_firstname');
                 }
 
                 if ((utf8_strlen($this->request->post['lastname']) < 1) || (utf8_strlen($this->request->post['lastname']) > 32)) {
                     $json['error']['lastname'] = $this->language->get('error_lastname');
-                }
+                }*/
 
                 if ((utf8_strlen($this->request->post['address_1']) < 3) || (utf8_strlen($this->request->post['address_1']) > 128)) {
                     $json['error']['address_1'] = $this->language->get('error_address_1');
