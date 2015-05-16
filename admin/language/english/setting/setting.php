@@ -116,6 +116,10 @@ $_['entry_error_display']          = 'Display Errors:';
 $_['entry_error_log']              = 'Log Errors:';
 $_['entry_error_filename']         = 'Error Log Filename:';
 $_['entry_google_analytics']       = 'Google Analytics Code:<br /><span class="help">Login to your <a href="http://www.google.com/analytics/" target="_blank"><u>Google Analytics</u></a> account and after creating your web site profile copy and paste the analytics code into this field.</span>';
+$_['entry_order_amount']           = 'Order Amount:<br /><span class="help">Minumum order amount for free shipping</span>';
+$_['entry_max_no_of_orders']       = 'Number of orders per day:<br /><span class="help">Maximum number of orders per day</span>';
+$_['entry_time_to_order']          = 'Time to order:<br /><span class="help">Order before this time to get delivery on the same day.</br>Format: hh:mm am or pm</span>';
+$_['entry_description']            = "Free Shipping Content";
 
 // Error
 $_['error_warning']                = 'Warning: Please check the form carefully for errors!';

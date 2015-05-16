@@ -140,8 +140,12 @@ class ControllerSettingSetting extends Controller {
 		$this->data['entry_error_log'] = $this->language->get('entry_error_log');
 		$this->data['entry_error_filename'] = $this->language->get('entry_error_filename');
 		$this->data['entry_google_analytics'] = $this->language->get('entry_google_analytics');
+    $this->data['entry_order_amount'] = $this->language->get('entry_order_amount');
+    $this->data['entry_max_no_of_orders'] = $this->language->get('entry_max_no_of_orders');
+    $this->data['entry_time_to_order'] = $this->language->get('entry_time_to_order');
+    $this->data['entry_description'] = $this->language->get('entry_description');
 
-		$this->data['button_save'] = $this->language->get('button_save');
+    $this->data['button_save'] = $this->language->get('button_save');
 		$this->data['button_cancel'] = $this->language->get('button_cancel');
 
 		$this->data['tab_general'] = $this->language->get('tab_general');
@@ -153,6 +157,7 @@ class ControllerSettingSetting extends Controller {
 		$this->data['tab_mail'] = $this->language->get('tab_mail');
 		$this->data['tab_fraud'] = $this->language->get('tab_fraud');
 		$this->data['tab_server'] = $this->language->get('tab_server');
+                $this->data['tab_delivery'] = $this->language->get('tab_delivery');
 
 		if (isset($this->error['warning'])) {
 			$this->data['error_warning'] = $this->error['warning'];
@@ -1044,6 +1049,30 @@ class ControllerSettingSetting extends Controller {
 			$this->data['config_google_analytics'] = $this->request->post['config_google_analytics']; 
 		} else {
 			$this->data['config_google_analytics'] = $this->config->get('config_google_analytics');
+		}
+                
+                if (isset($this->request->post['config_order_amount'])) {
+			$this->data['config_order_amount'] = $this->request->post['config_order_amount']; 
+		} else {
+			$this->data['config_order_amount'] = $this->config->get('config_order_amount');
+		}
+                
+    if (isset($this->request->post['config_max_no_of_orders'])) {
+			$this->data['config_max_no_of_orders'] = $this->request->post['config_max_no_of_orders']; 
+		} else {
+			$this->data['config_max_no_of_orders'] = $this->config->get('config_max_no_of_orders');
+		}
+    
+    if (isset($this->request->post['config_free_shipping_content'])) {
+			$this->data['config_free_shipping_content'] = $this->request->post['config_free_shipping_content']; 
+		} else {
+			$this->data['config_free_shipping_content'] = $this->config->get('config_free_shipping_content');
+		}
+                
+    if (isset($this->request->post['config_time_to_order'])) {
+			$this->data['config_time_to_order'] = $this->request->post['config_time_to_order']; 
+		} else {
+			$this->data['config_time_to_order'] = $this->config->get('config_time_to_order');
 		}
 
 		$this->template = 'setting/setting.tpl';
