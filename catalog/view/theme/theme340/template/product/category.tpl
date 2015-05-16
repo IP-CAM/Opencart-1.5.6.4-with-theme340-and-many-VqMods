@@ -19,7 +19,7 @@
   <?php } ?>
   <?php if ($categories) { ?>
   <div class="box subcat">
-	<div class="box-heading"><?php echo $text_refine; ?></div>
+	<!--<div class="box-heading"><?php echo $text_refine; ?></div>-->
 	<div class="box-content">
 		
 		<div class="box-product box-subcat">
@@ -80,17 +80,17 @@
 	<ul class="row">
 		<?php $i=0; foreach ($products as $product) { $i++; ?>
 		<?php 
-			if ($i%3==1) {
+			if ($i%4==1) {
 				$a='first-in-line';
 			}
-			elseif ($i%3==0) {
+			elseif ($i%4==0) {
 				$a='last-in-line';
 			}
 			else {
 				$a='';
 			}
 		?>
-		<li class="col-sm-4 <?php echo $a?>">
+		<li class="col-sm-3 <?php echo $a?>">
 		<div class="padding">
 		<?php if ($product['thumb']) { ?>
 		<div class="image"><a href="<?php echo $product['href']; ?>"><img id="img_<?php echo $product['product_id']; ?>" src="<?php echo $product['thumb']; ?>" title="<?php echo $product['name']; ?>" alt="<?php echo $product['name']; ?>" /></a></div>
@@ -109,12 +109,12 @@
 		<?php } ?>
 		</div>
 		<?php } ?>
-		<div class="cart-button">
+		<!--<div class="cart-button">
 			<div class="cart"><a onclick="addToCart('<?php echo $product['product_id']; ?>');" class="button tooltip-1" title="<?php echo $button_cart; ?>"><i class="fa fa-shopping-cart"></i><span><?php echo $button_cart; ?></span></a></div>
 			<div class="wishlist"><a class="tooltip-1 " title="<?php echo $button_wishlist; ?>"  onclick="addToWishList('<?php echo $product['product_id']; ?>');"><i class="fa fa-star"></i></a></div>
 			<div class="compare"><a class="tooltip-1" title="<?php echo $button_compare; ?>"  onclick="addToCompare('<?php echo $product['product_id']; ?>');"><i class="fa fa-bar-chart-o"></i></a></div>
 			<div class="clear"></div>
-		</div>
+		</div>-->
 		<div class="rating">
 			<?php if ($product['rating']) { ?>
 			<img height="13" src="catalog/view/theme/theme340/image/stars-<?php echo $product['rating']; ?>.png" alt="<?php echo $product['reviews']; ?>" />
@@ -161,12 +161,12 @@ function display(view) {
 				if (price != null) {
 					html += '<div class="price">' + price  + '</div>';
 				}
-				html += '<div class="cart-button">';
+				/*html += '<div class="cart-button">';
 				html += '<div class="cart">' + $(element).find('.cart').html() + '</div>';
 				html += '<div class="wishlist">' + $(element).find('.wishlist').html() + '</div>';
 				html += '<div class="compare">' + $(element).find('.compare').html() + '</div>';
 				html += '<div class="clear">' + $(element).find('.clear').html() + '</div>';
-				html += '</div>';
+				html += '</div>';*/
 				var rating = $(element).find('.rating').html();
 				if (rating != null) {
 					html += '<div class="rating">' + rating + '</div>';
@@ -209,12 +209,12 @@ function display(view) {
 			html += '<div class="description">' + $(element).find('.description').html() + '</div>';
 			
 			
-			html += '<div class="cart-button">';
+			/*html += '<div class="cart-button">';
 			html += '<div class="cart">' + $(element).find('.cart').html() + '</div>';
 			html += '<div class="wishlist">' + $(element).find('.wishlist').html() + '</div>';
 			html += '<div class="compare">' + $(element).find('.compare').html() + '</div>';
 			html += '<div class="clear">' + $(element).find('.clear').html() + '</div>';
-			html += '</div>';
+			html += '</div>';*/
 			var rating = $(element).find('.rating').html();
 			
 			if (rating != null) {
