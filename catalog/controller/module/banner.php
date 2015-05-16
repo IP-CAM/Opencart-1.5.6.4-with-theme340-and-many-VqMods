@@ -9,7 +9,12 @@ class ControllerModuleBanner extends Controller {
 		$this->document->addScript('catalog/view/javascript/jquery/jquery.cycle.js');
 				
 		$this->data['banners'] = array();
-		
+    
+		$this->data['fs_order_amount'] = $this->config->get('config_order_amount');
+    $this->data['fs_order_amount'] = $this->currency->format($this->data['fs_order_amount']);
+    
+    $this->data['place_order_before'] = $this->config->get('config_time_to_order');
+    
 		$results = $this->model_design_banner->getBanner($setting['banner_id']);
 
 		foreach ($results as $result) {
