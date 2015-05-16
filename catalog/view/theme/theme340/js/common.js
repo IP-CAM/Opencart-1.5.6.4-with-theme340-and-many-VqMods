@@ -110,9 +110,10 @@ $(document).ready(function () {
         e.preventDefault();
         var zipcode = $('#order_zipcode').val();
         if (zipcode.trim() != '') {
-            checkZCAvailability(zipcode);
+            checkZCAvailability(zipcode);            
         }
     });
+    
 });
 
 function getURLVar(key) {
@@ -253,13 +254,17 @@ function checkZCAvailability(zipcode) {
         data: 'zipcode=' + zipcode,
         dataType: 'json',
         success: function (json) {
-
+            if ($('#zc_vf_status_img').length > 0) {
+                $('#zc_vf_status_img').remove();
+            }
             if (json && json['success']) {
-                $('#zc_status_msg').removeClass('error');
-                $('#zc_status_msg').html("Delivery Avialable.");
-            } else {
-                $('#zc_status_msg').html("Delivery not Avialable.");
-                $('#zc_status_msg').addClass('error');
+                /*$('#zc_status_msg').removeClass('error');
+                $('#zc_status_msg').html("Delivery Avialable.");*/
+                $('#order_zipcode').after('<img id="zc_vf_status_img" src="' + json['src'] + '/image/accepted_48.png" />');
+            }else {
+                /*$('#zc_status_msg').html("Delivery not Avialable.");
+                $('#zc_status_msg').addClass('error');*/
+                $('#order_zipcode').after('<img id="zc_vf_status_img" src="' + json['src'] + '/image/cross_Icon.png" />');
             }
         }
     });
