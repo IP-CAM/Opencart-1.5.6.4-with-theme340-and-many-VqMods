@@ -116,12 +116,12 @@
 		<td><div class="radio"><label  for="use_reward"><input type="radio" name="next" value="reward" id="use_reward" /><?php echo $text_use_reward; ?></label></div></td>
 	  </tr>
 	  <?php } ?>
-	  <?php if ($shipping_status) { ?>
-	  <tr class="highlight">
+	  <?php //if ($shipping_status) { ?>
+	  <!--<tr class="highlight">
 		
 		<td><div class="radio"><label  for="shipping_estimate"><input type="radio" name="next" value="shipping" id="shipping_estimate" /><?php echo $text_shipping_estimate; ?></label></div></td>
-	  </tr>
-	  <?php } ?>
+	  </tr>-->
+	  <?php //} ?>
 	</table>
   </div>
   <div class="cart-module">
@@ -165,9 +165,50 @@
 			</div>
 		</form>
 	</div>
-	<div id="shipping" class="content">
-	  <p><?php echo $text_shipping_detail; ?></p>
-	  <table class="form-horizontal" width="100%">
+      <?php if($shipping_methods) { ?>
+	<div id="shipping" class="content" style="display:block;">
+            <?php if($shipping_method_msg) { ?>
+            <div class="shipping-method-msg"><?php echo $shipping_method_msg;  ?></div>
+            <?php } ?>
+            <?php if(count($shipping_methods) > 1) { ?>
+            <h2><?php echo $text_shipping_method; ?></h2>
+            <?php } ?>
+            <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
+                <table id="cart-shipping" class="table">
+                   <?php foreach($shipping_methods as $method) { 
+                   if(isset($shipping_method) && !empty($shipping_method) && $shipping_method == $method['quote'][$method['code']]['code']) {
+                      $checked = "checked = checked";
+                   }else {
+                      $checked = "";
+                   }?>
+                   <!--<tr>
+                        <td colspan="3"><b><?php echo $method['quote'][$method['code']]['title']; ?></b></td>
+                   </tr>-->
+                   <tr>
+                   <td>
+                       <?php if(count($shipping_methods) > 1) { ?>
+                       <input type="radio" name="shipping_method" value="<?php echo $method['quote'][$method['code']]['code'] ?>" id="<?php echo $method['quote'][$method['code']]['code'] ?>" <?php echo $checked; ?> />                                   
+                       <?php }else { ?>
+                       <input type="radio" name="shipping_method" value="<?php echo $method['quote'][$method['code']]['code'] ?>" id="<?php echo $method['quote'][$method['code']]['code'] ?>"  checked="checked" style="display:none;"/>                                   
+                       <?php } ?>
+                       
+                       <label for="<?php echo $method['quote'][$method['code']]['code'] ?>"><?php echo $method['title'] ?></label>
+		       <label for="<?php echo $method['quote'][$method['code']]['code'] ?>"><?php echo $method['quote'][$method['code']]['text'] ?></label>
+                   </td>
+                   </tr>
+                   <?php } ?>
+                </table>
+                <?php if(count($shipping_methods) > 1) { ?>
+                <div class="buttons">
+                    <a class="button" id="apply-shipping-method">
+                        <span>Apply</span>
+                <!--<input class="button" type="submit" name="choose-shipping-method" value="Apply" />-->
+                    </a>
+                </div>
+                <?php } ?>
+            </form>
+	  <!--<p><?php echo $text_shipping_detail; ?></p>
+	  <!--<table class="form-horizontal" width="100%">
 		<tr>
 			<td>
 				<div class="form-group">
@@ -217,8 +258,9 @@
 				</div>
 			</td>
 		</tr>
-	  </table>
+	  </table>-->
 	  </div>
+      <?php } ?>
 	</div>
 	<?php } ?>
   
@@ -264,7 +306,7 @@ $('#shipping_estimate').trigger('click');
 //--></script>
 <?php if ($shipping_status) { ?>
 <script type="text/javascript"><!--
-$('#button-quote').live('click', function() {
+/*$('#button-quote').live('click', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/cart/quote',
 		type: 'post',
@@ -361,10 +403,10 @@ $('#button-quote').live('click', function() {
 			}
 		}
 	});
-});
+});*/
 //--></script> 
 <script type="text/javascript"><!--
-$('select[name=\'country_id\']').bind('change', function() {
+/*$('select[name=\'country_id\']').bind('change', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/cart/country&country_id=' + this.value,
 		dataType: 'json',
@@ -405,7 +447,7 @@ $('select[name=\'country_id\']').bind('change', function() {
 	});
 });
 
-$('select[name=\'country_id\']').trigger('change');
+$('select[name=\'country_id\']').trigger('change');*/
 //--></script>
 <?php } ?>
 <?php echo $footer; ?>

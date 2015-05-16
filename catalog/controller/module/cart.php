@@ -146,13 +146,16 @@ class ControllerModuleCart extends Controller {
                 $zipcode = $this->request->post['zipcode'];
             }else {
                $json['error'] = 0;
+               $json['src'] = $this->config->get('config_url');
             }
             $this->load->model('module/zipcode');
             if($this->model_module_zipcode->checkZipcode($zipcode)) {
                 $json['success'] = 1;
                 $this->session->data['zipcode'] = $zipcode;
+                $json['src'] = $this->config->get('config_url');
             }else {
                 $json['error'] = 1;
+                $json['src'] = $this->config->get('config_url');
             }
             $this->response->setOutput(json_encode($json));
         }
