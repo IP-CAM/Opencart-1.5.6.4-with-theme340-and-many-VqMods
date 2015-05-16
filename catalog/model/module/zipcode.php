@@ -9,4 +9,11 @@ class ModelModuleZipcode extends Model {
         }
         return false;
     }
+    public function getAllZipcodes() {
+      $result = $this->db->query("SELECT id,zipcode FROM " . DB_PREFIX . "zipcodes WHERE status = 1");
+      if($result->num_rows) {
+        return $result;
+      }
+      return false;
+    }
 }
