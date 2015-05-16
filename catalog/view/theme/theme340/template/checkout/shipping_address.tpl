@@ -18,10 +18,12 @@
 		<input type="radio" name="shipping_address" value="new" id="shipping-address-new" />
 	</label>
 </p>
+<?php }else { ?>
+<input type="hidden" name="shipping_address_guest" value="guest" id="shipping_address_guest" />
 <?php } ?>
 <div id="shipping-new" style="display: <?php echo ($addresses ? 'none' : 'block'); ?>;">
   <div class="form form-horizontal">
-		<div class="form-group">
+		<!--<div class="form-group">
 			<label class="control-label col-sm-5" for="firstname"><span class="required">*</span> <?php echo $entry_firstname; ?></label>
 			<div class="controls col-sm-7">
 				<input type="text" name="firstname" value="" class="large-field" />
@@ -38,7 +40,7 @@
 			<div class="controls col-sm-7">
 				<input type="text" name="company" value="" class="large-field" />
 			</div>
-		</div>
+		</div>-->
 		<div class="form-group">
 			<label class="control-label col-sm-5" for="address_1"><span class="required">*</span> <?php echo $entry_address_1; ?></label>
 			<div class="controls col-sm-7">

@@ -9,7 +9,7 @@ $('#button-confirm').bind('click', function() {
 		type: 'GET',
 		url: 'index.php?route=payment/cod/confirm',
 		success: function() {
-			location = '<?php echo $continue; ?>';
+			location = '<?php echo $continue."&order_id=".$order_id; ?>';
 		}		
 	});
 });

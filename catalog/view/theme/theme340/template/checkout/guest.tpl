@@ -1,11 +1,11 @@
 <div class="left">
   <h2><?php echo $text_your_details; ?></h2>
-  <span class="required">*</span> <?php echo $entry_firstname; ?><br />
+  <span class="required">*</span> <?php echo "Name"; ?><br />
   <input type="text" name="firstname" value="<?php echo $firstname; ?>" class="large-field" />
-  <br />
+  <!--<br />
   <br />
   <span class="required">*</span> <?php echo $entry_lastname; ?><br />
-  <input type="text" name="lastname" value="<?php echo $lastname; ?>" class="large-field" />
+  <input type="text" name="lastname" value="<?php echo $lastname; ?>" class="large-field" />-->
   <br />
   <br />
   <span class="required">*</span> <?php echo $entry_email; ?><br />
@@ -14,19 +14,19 @@
   <br />
   <span class="required">*</span> <?php echo $entry_telephone; ?><br />
   <input type="text" name="telephone" value="<?php echo $telephone; ?>" class="large-field" />
-  <br />
+  <!--<br />
   <br />
   <?php echo $entry_fax; ?><br />
-  <input type="text" name="fax" value="<?php echo $fax; ?>" class="large-field" />
+  <input type="text" name="fax" value="<?php echo $fax; ?>" class="large-field" />-->
   <br />
   <br />
 </div>
 <div class="right">
   <h2><?php echo $text_your_address; ?></h2>
-  <?php echo $entry_company; ?><br />
+  <!--<?php echo $entry_company; ?><br />
   <input type="text" name="company" value="<?php echo $company; ?>" class="large-field" />
   <br />
-  <br />
+  <br />-->
   <div style="display: <?php echo (count($customer_groups) > 1 ? 'table-row' : 'none'); ?>;"> <?php echo $entry_customer_group; ?><br />
     <?php foreach ($customer_groups as $customer_group) { ?>
     <?php if ($customer_group['customer_group_id'] == $customer_group_id) { ?>
@@ -41,7 +41,7 @@
     <?php } ?>
     <br />
   </div>
-  <div id="company-id-display"><span id="company-id-required" class="required">*</span> <?php echo $entry_company_id; ?><br />
+  <!--<div id="company-id-display"><span id="company-id-required" class="required">*</span> <?php echo $entry_company_id; ?><br />
     <input type="text" name="company_id" value="<?php echo $company_id; ?>" class="large-field" />
     <br />
     <br />
@@ -50,7 +50,7 @@
     <input type="text" name="tax_id" value="<?php echo $tax_id; ?>" class="large-field" />
     <br />
     <br />
-  </div>
+  </div>-->
   <span class="required">*</span> <?php echo $entry_address_1; ?><br />
   <input type="text" name="address_1" value="<?php echo $address_1; ?>" class="large-field" />
   <br />
@@ -87,7 +87,7 @@
   <br />
   <br />
 </div>
-<?php if ($shipping_required) { ?>
+<!--<?php if ($shipping_required) { ?>
 <div style="clear: both; padding-top: 15px; border-top: 1px solid #DDDDDD;">
   <label for="shipping" class="checkbox">
   <?php if ($shipping_address) { ?>
@@ -100,14 +100,14 @@
   <br />
   <br />
 </div>
-<?php } ?>
+<?php } ?>-->
 <div class="buttons">
   <div class="right">
     <a id="button-guest" class="button"><span><?php echo $button_continue; ?></span></a>
   </div>
 </div>
 <script type="text/javascript"><!--
-$('#payment-address input[name=\'customer_group_id\']:checked').live('change', function() {
+$('#shipping-address input[name=\'customer_group_id\']:checked').live('change', function() {
 	var customer_group = [];
 	
 <?php foreach ($customer_groups as $customer_group) { ?>
@@ -145,16 +145,16 @@ $('#payment-address input[name=\'customer_group_id\']:checked').live('change', f
 	}
 });
 
-$('#payment-address input[name=\'customer_group_id\']:checked').trigger('change');
+$('#shipping-address input[name=\'customer_group_id\']:checked').trigger('change');
 //--></script> 
 <script type="text/javascript"><!--
-$('#payment-address select[name=\'country_id\']').bind('change', function() {
+$('#shipping-address select[name=\'country_id\']').bind('change', function() {
     if (this.value == '') return;
 	$.ajax({
 		url: 'index.php?route=checkout/checkout/country&country_id=' + this.value,
 		dataType: 'json',
 		beforeSend: function() {
-			$('#payment-address select[name=\'country_id\']').after('<span class="wait">&nbsp;<img src="catalog/view/theme/theme340/image/loading.gif" alt="" /></span>');
+			$('#shipping-address select[name=\'country_id\']').after('<span class="wait">&nbsp;<img src="catalog/view/theme/theme340/image/loading.gif" alt="" /></span>');
 		},
 		complete: function() {
 			$('.wait').remove();
@@ -182,7 +182,7 @@ $('#payment-address select[name=\'country_id\']').bind('change', function() {
 				html += '<option value="0" selected="selected"><?php echo $text_none; ?></option>';
 			}
 			
-			$('#payment-address select[name=\'zone_id\']').html(html);
+			$('#shipping-address select[name=\'zone_id\']').html(html);
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -190,5 +190,5 @@ $('#payment-address select[name=\'country_id\']').bind('change', function() {
 	});
 });
 
-$('#payment-address select[name=\'country_id\']').trigger('change');
+$('#shipping-address select[name=\'country_id\']').trigger('change');
 //--></script>

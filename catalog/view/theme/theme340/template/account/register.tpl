@@ -22,7 +22,7 @@
 			<tr>
 				<td>
 					<div class="form-group">
-						<label class="control-label col-sm-5" for="firstname"><span class="required">*</span> <?php echo $entry_firstname; ?></label>
+						<label class="control-label col-sm-5" for="firstname"><span class="required">*</span> <?php echo 'Name'; ?></label>
 						<div class="controls col-sm-7">
 							<input class="q1" type="text" name="firstname" value="<?php echo $firstname; ?>" />
 							<?php if ($error_firstname) { ?>
@@ -32,7 +32,7 @@
 					</div>
 				</td>
 			</tr>
-			<tr>
+			<!--<tr>
 				<td>
 					<div class="form-group">
 						<label class="control-label col-sm-5" for="lastname"><span class="required">*</span> <?php echo $entry_lastname; ?></label>
@@ -44,7 +44,7 @@
 						</div>
 					</div>
 				</td>
-			</tr>
+			</tr>-->
 			<tr>
 				<td>
 					<div class="form-group">
