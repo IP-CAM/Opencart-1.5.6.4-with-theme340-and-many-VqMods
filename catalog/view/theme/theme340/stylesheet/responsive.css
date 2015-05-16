@@ -30,16 +30,16 @@
 	padding:30px 30px 33px;
 	}
 .box .box-content .box-product ul li {
-	margin-bottom:32px;
+	/*margin-bottom:32px;*/
 	}
 .box .box-content .box-product ul li .padding{
 	border:1px solid #eeeeee;
 	}
 .product-grid li .padding .left {
-	padding:30px 30px 10px
+	padding:5px 5px 5px
 	}
 .product-grid li .padding{
-	border:1px solid #eeeeee;
+	/*border:1px solid #eeeeee;*/
 	}
 .product-grid .cart {
 	margin-right:14px;
