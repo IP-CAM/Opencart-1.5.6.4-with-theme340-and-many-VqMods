@@ -1,6 +1,7 @@
 <?php
 class ModelCheckoutOrder extends Model {
 	public function addOrder($data) {
+    
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "order` SET invoice_prefix = '" . $this->db->escape($data['invoice_prefix']) . "', store_id = '" . (int)$data['store_id'] . "', store_name = '" . $this->db->escape($data['store_name']) . "', store_url = '" . $this->db->escape($data['store_url']) . "', customer_id = '" . (int)$data['customer_id'] . "', customer_group_id = '" . (int)$data['customer_group_id'] . "', firstname = '" . $this->db->escape($data['firstname']) . "', lastname = '" . $this->db->escape($data['lastname']) . "', email = '" . $this->db->escape($data['email']) . "', telephone = '" . $this->db->escape($data['telephone']) . "', fax = '" . $this->db->escape($data['fax']) . "', payment_firstname = '" . $this->db->escape($data['payment_firstname']) . "', payment_lastname = '" . $this->db->escape($data['payment_lastname']) . "', payment_company = '" . $this->db->escape($data['payment_company']) . "', payment_company_id = '" . $this->db->escape($data['payment_company_id']) . "', payment_tax_id = '" . $this->db->escape($data['payment_tax_id']) . "', payment_address_1 = '" . $this->db->escape($data['payment_address_1']) . "', payment_address_2 = '" . $this->db->escape($data['payment_address_2']) . "', payment_city = '" . $this->db->escape($data['payment_city']) . "', payment_postcode = '" . $this->db->escape($data['payment_postcode']) . "', payment_country = '" . $this->db->escape($data['payment_country']) . "', payment_country_id = '" . (int)$data['payment_country_id'] . "', payment_zone = '" . $this->db->escape($data['payment_zone']) . "', payment_zone_id = '" . (int)$data['payment_zone_id'] . "', payment_address_format = '" . $this->db->escape($data['payment_address_format']) . "', payment_method = '" . $this->db->escape($data['payment_method']) . "', payment_code = '" . $this->db->escape($data['payment_code']) . "', shipping_firstname = '" . $this->db->escape($data['shipping_firstname']) . "', shipping_lastname = '" . $this->db->escape($data['shipping_lastname']) . "', shipping_company = '" . $this->db->escape($data['shipping_company']) . "', shipping_address_1 = '" . $this->db->escape($data['shipping_address_1']) . "', shipping_address_2 = '" . $this->db->escape($data['shipping_address_2']) . "', shipping_city = '" . $this->db->escape($data['shipping_city']) . "', shipping_postcode = '" . $this->db->escape($data['shipping_postcode']) . "', shipping_country = '" . $this->db->escape($data['shipping_country']) . "', shipping_country_id = '" . (int)$data['shipping_country_id'] . "', shipping_zone = '" . $this->db->escape($data['shipping_zone']) . "', shipping_zone_id = '" . (int)$data['shipping_zone_id'] . "', shipping_address_format = '" . $this->db->escape($data['shipping_address_format']) . "', shipping_method = '" . $this->db->escape($data['shipping_method']) . "', shipping_code = '" . $this->db->escape($data['shipping_code']) . "', comment = '" . $this->db->escape($data['comment']) . "', total = '" . (float)$data['total'] . "', affiliate_id = '" . (int)$data['affiliate_id'] . "', commission = '" . (float)$data['commission'] . "', language_id = '" . (int)$data['language_id'] . "', currency_id = '" . (int)$data['currency_id'] . "', currency_code = '" . $this->db->escape($data['currency_code']) . "', currency_value = '" . (float)$data['currency_value'] . "', ip = '" . $this->db->escape($data['ip']) . "', forwarded_ip = '" .  $this->db->escape($data['forwarded_ip']) . "', user_agent = '" . $this->db->escape($data['user_agent']) . "', accept_language = '" . $this->db->escape($data['accept_language']) . "', date_added = NOW(), date_modified = NOW()");
 
 		$order_id = $this->db->getLastId();
@@ -149,7 +150,8 @@ class ModelCheckoutOrder extends Model {
 				'user_agent'              => $order_query->row['user_agent'],	
 				'accept_language'         => $order_query->row['accept_language'],				
 				'date_modified'           => $order_query->row['date_modified'],
-				'date_added'              => $order_query->row['date_added']
+				'date_added'              => $order_query->row['date_added'],
+        'estimated_delivery_date' => $order_query->row['estimated_delivery_date'],
 			);
 		} else {
 			return false;	
@@ -158,6 +160,33 @@ class ModelCheckoutOrder extends Model {
 
 	public function confirm($order_id, $order_status_id, $comment = '', $notify = false) {
 		$order_info = $this->getOrder($order_id);
+    
+    $total = $this->getOrderTotal($order_id);
+    $time_to_order = strtotime(date('d-m-Y') . ' ' . $this->config->get('config_time_to_order'));
+    $no_of_orders = $this->todayDeliverableOrders();
+    $estimated_delivery_date = '';
+    
+    if ($total >= $this->config->get('config_order_amount')) {
+        if (time() < $time_to_order) {
+          if ($no_of_orders < $this->config->get('config_max_no_of_orders')) {
+            $estimated_delivery_date = date('Y-m-d');
+          }else {
+            $estimated_delivery_date = date('Y-m-d', strtotime('+1 day', strtotime('Y-m-d')));
+          }
+        }else {
+          $estimated_delivery_date = date('Y-m-d', strtotime('+1 day', strtotime('Y-m-d')));
+        }
+    }else {
+      if (time() > $time_to_order) {
+        $estimated_delivery_date = date('Y-m-d', strtotime('+1 day', strtotime('Y-m-d')));
+      }else {
+        if($order_info[] = "free.free") {
+          $estimated_delivery_date = date('Y-m-d', strtotime('+1 day', strtotime('Y-m-d')));
+        }else {
+          $estimated_delivery_date = date('Y-m-d');
+        }
+      }
+    }
 
 		if ($order_info && !$order_info['order_status_id']) {
 			// Fraud Detection
@@ -194,7 +223,7 @@ class ModelCheckoutOrder extends Model {
 				$order_status_id = $this->config->get('config_order_status_id');
 			}		
 
-			$this->db->query("UPDATE `" . DB_PREFIX . "order` SET order_status_id = '" . (int)$order_status_id . "', date_modified = NOW() WHERE order_id = '" . (int)$order_id . "'");
+			$this->db->query("UPDATE `" . DB_PREFIX . "order` SET order_status_id = '" . (int)$order_status_id . "', date_modified = NOW(), estimated_delivery_date = '".$estimated_delivery_date."' WHERE order_id = '" . (int)$order_id . "'");
 
 			$this->db->query("INSERT INTO " . DB_PREFIX . "order_history SET order_id = '" . (int)$order_id . "', order_status_id = '" . (int)$order_status_id . "', notify = '1', comment = '" . $this->db->escape(($comment && $notify) ? $comment : '') . "', date_added = NOW()");
 
@@ -676,5 +705,21 @@ class ModelCheckoutOrder extends Model {
 			}
 		}
 	}
+  public function todayDeliverableOrders() {
+    $sql = "SELECT count(*) AS no_of_orders FROM `" . DB_PREFIX . "order` WHERE DATE(estimated_delivery_date) = '".date('Y-m-d')."' AND order_status_id > 0";    
+    $orders = $this->db->query($sql);
+    if($orders) {
+      return $orders->row['no_of_orders'];
+    }else {
+      return 0;
+    }
+  }
+  public function getOrderTotal($order_id) {
+    $sql = "SELECT value fROM `". DB_PREFIX ."order_total` WHERE order_id = ".$order_id." ORDER BY sort_order DESC LIMIT 1";
+    $total = $this->db->query($sql);error_log($total);
+    if(isset($total->row['value'])) {
+      return $total->row['value'];
+    }    
+  }
 }
 ?>
